@@ -1,4 +1,4 @@
-package com.qfxl.android.loader.ImageLoader;
+package com.strive.android.ImageLoader;
 
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;

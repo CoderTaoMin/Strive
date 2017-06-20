@@ -1,10 +1,10 @@
 
-package com.qfxl.android.utils;
+package com.strive.android.utils;
 
 import android.annotation.SuppressLint;
 
 
-import com.qfxl.android.App;
+import com.strive.android.App;
 
 import java.io.InputStream;
 import java.security.KeyStore;

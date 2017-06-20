@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "com.qfxl.android"
+        applicationId "com.strive.android"
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1

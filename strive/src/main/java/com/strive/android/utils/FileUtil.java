@@ -1,5 +1,5 @@
 
-package com.qfxl.android.utils;
+package com.strive.android.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

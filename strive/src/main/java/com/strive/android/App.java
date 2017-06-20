@@ -1,4 +1,4 @@
-package com.qfxl.android;
+package com.strive.android;
 
 import android.app.Application;
 

@@ -1,4 +1,4 @@
-package com.qfxl.android.adapter;
+package com.strive.android.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;

@@ -1,4 +1,4 @@
-package com.qfxl.android.loader.ImageLoader;
+package com.strive.android.ImageLoader;
 
 import android.content.Context;
 import android.graphics.Bitmap;

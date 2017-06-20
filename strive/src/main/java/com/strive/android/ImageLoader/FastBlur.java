@@ -1,4 +1,4 @@
-package com.qfxl.android.loader.ImageLoader;
+package com.strive.android.ImageLoader;
 
 import android.annotation.TargetApi;
 import android.content.Context;

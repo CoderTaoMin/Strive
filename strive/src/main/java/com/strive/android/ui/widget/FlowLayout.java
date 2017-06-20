@@ -1,4 +1,4 @@
-package com.qfxl.android.ui.widget;
+package com.strive.android.ui.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;

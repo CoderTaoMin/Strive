@@ -1,4 +1,4 @@
-package com.qfxl.android.base;
+package com.strive.android.base;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.qfxl.android.utils;
+package com.strive.android.utils;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
