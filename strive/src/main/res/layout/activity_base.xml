@@ -2,12 +2,28 @@
 <com.strive.android.ui.custom.MultipleStatusLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/msl_base_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/Theme.ToolBar.Translucent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textColor="#fff" />
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
         android:orientation="vertical" />
 
 </com.strive.android.ui.custom.MultipleStatusLayout>

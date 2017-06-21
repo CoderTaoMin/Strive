@@ -16,7 +16,32 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!--toolBar-->
+    <style name="Theme.ToolBar.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+        <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.KitKat</item>
+    </style>
 
+    <!--toolBar 主title样式-->
+    <style name="Theme.ToolBar.Base.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+    <!--toolBar 次标题-->
+    <style name="Theme.ToolBar.Base.Subtitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+    <!--仿知乎toolBar-->
+    <!--4.4以前标题右边的...采用白色-->
+    <style name="ActionButton.Overflow.KitKat" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_menu_more_overflow</item>
+    </style>
+    <!--沉浸式-->
+    <style name="Theme.Translucent" parent="AppTheme">
+        <!--在Android 4.4之前的版本上运行，直接跟随系统主题-->
+    </style>
     <!--BaseDialog-->
     <style name="BaseDialog" parent="android:style/Theme.Dialog">
         <item name="android:background">#00000000</item>

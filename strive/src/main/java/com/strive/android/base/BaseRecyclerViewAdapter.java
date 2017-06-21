@@ -14,56 +14,31 @@ import java.util.List;
  * class说明:通用适配器
  */
 
-public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
+public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewHolder> {
 
-    private List<T> mDatas;
+    private List<T> mDataList;
 
-    public BaseRecyclerViewAdapter(List<T> mDatas) {
-        this.mDatas = mDatas;
+    public BaseRecyclerViewAdapter(List<T> mDataList) {
+        this.mDataList = mDataList;
     }
 
     abstract int getLayoutId(int viewType);
 
-    abstract void convert(BaseViewHolder holder, T data, int position);
+    abstract void convert(BaseRecyclerViewHolder holder, T data, int position);
 
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return BaseViewHolder.get(parent, getLayoutId(viewType));
+    public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return BaseRecyclerViewHolder.get(parent, getLayoutId(viewType));
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
-        convert(holder, mDatas.get(position), position);
+    public void onBindViewHolder(BaseRecyclerViewHolder holder, int position) {
+        convert(holder, mDataList.get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return mDataList.size();
     }
 }
 
-class BaseViewHolder extends RecyclerView.ViewHolder {
-    private SparseArray<View> mViews;
-    private View mConvertView;
-
-    public BaseViewHolder(View itemView) {
-        super(itemView);
-        mViews = new SparseArray<>();
-        mConvertView = itemView;
-    }
-
-    public static BaseViewHolder get(ViewGroup parent, int layoutId) {
-        View convertView = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
-        return new BaseViewHolder(convertView);
-    }
-
-    public <T extends View> T getView(int id) {
-        View v = mViews.get(id);
-        if (v == null) {
-            v = mConvertView.findViewById(id);
-            mViews.put(id, v);
-        }
-        return (T) v;
-    }
-
-}

@@ -9,7 +9,10 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.strive.android.R;
-
+/**
+ * Created by 清风徐来 on 2017/06/21
+ * 类说明:多状态布局,包含加载错误,网络错误,加载中等
+ */
 public class MultipleStatusLayout extends RelativeLayout {
     public static final int STATUS_CONTENT = 0x00;
     public static final int STATUS_LOADING = 0x01;
