@@ -45,7 +45,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         });
         LinearLayout contentLayout = (LinearLayout) findViewById(R.id.content_view);
         View view = getLayoutInflater().inflate(getLayoutId(), null);
-        contentLayout.addView(view);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT
+                ,LinearLayout.LayoutParams.MATCH_PARENT);
+        contentLayout.addView(view,lp);
         findView();
         initView();
         presenter = initPresenter();
