@@ -1,105 +1,148 @@
 package com.strive.android.base;
 
 import android.app.Activity;
-import android.content.Intent;
+
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.LinearLayout;
+
+import com.strive.android.R;
+import com.strive.android.ui.custom.MultipleStatusLayout;
+import com.strive.android.utils.ToastUtil;
+
 
 /**
  * Created by 清风徐来 on 2016/11/2
  * 类说明:基类Activity
  */
-public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity {
-
-    protected T presenter;
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
+    private T presenter;
+    protected MultipleStatusLayout rootLayout;//视图的各种状态,如加载错误,网络错误,loading状态
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = initPresenter();
-    }
-
-    @Override
-    public void setContentView(@LayoutRes int layoutResID) {
-        super.setContentView(getLayoutId());
+        setContentView(R.layout.activity_base);
+        rootLayout = (MultipleStatusLayout) findViewById(R.id.msl_base_root);
+        showLoading();
+        rootLayout.setOnRetryClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.showToast(getActivity(), "重新加载");
+            }
+        });
+        LinearLayout contentLayout = (LinearLayout) findViewById(R.id.content_view);
+        View view = getLayoutInflater().inflate(getLayoutId(), null);
+        contentLayout.addView(view);
         findView();
         initView();
+        presenter = initPresenter();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.attach((V) this);
+        presenter.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.onPause();
     }
 
     @Override
     protected void onDestroy() {
-        presenter.detach();
         super.onDestroy();
+        presenter.onDestroy();
     }
 
-    protected abstract int getLayoutId();//获取主布局layoutId
+    /**
+     * 显示内容布局
+     */
+    protected void showContent() {
+        if (rootLayout != null) {
+            rootLayout.showContent();
+        }
+    }
 
-    protected abstract T initPresenter();//获取presenter
+    /**
+     * 显示loading状态
+     */
+    protected void showLoading() {
+        if (rootLayout != null) {
+            rootLayout.showLoading();
+        }
+    }
+
+    /**
+     * 显示空数据状态
+     */
+    protected void showEmptyData() {
+        if (rootLayout != null) {
+            rootLayout.showEmpty();
+        }
+    }
+
+    /**
+     * 显示网络错误
+     */
+    protected void showNetWorkError() {
+        if (rootLayout != null) {
+            rootLayout.showNoNetwork();
+        }
+    }
+
+    /**
+     * 显示数据加载错误
+     */
+    protected void showLoadError() {
+        if (rootLayout != null) {
+            rootLayout.showError();
+        }
+    }
+
+
+    /**
+     * 主布局id
+     *
+     * @return
+     */
+    protected abstract int getLayoutId();
 
     protected abstract void findView();
 
     protected abstract void initView();
 
-
     /**
-     * Activity跳转
+     * 初始化Presenter
      *
-     * @param clazz
+     * @return
      */
-    protected void transformActivity(Class clazz) {
-        transformActivity(clazz, null);
-    }
+    protected abstract T initPresenter();
 
     /**
-     * Activity跳转
+     * 添加Fragment到布局中
      *
-     * @param clazz
+     * @param containerViewId 布局id
+     * @param fragment        fragment
      */
-    protected void transformActivity(Class clazz, Bundle bundle) {
-        Intent intent = new Intent(this, clazz);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        startActivity(intent);
-        overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);//切换动画
-    }
-
-    /**
-     * 返回键
-     */
-    protected void back() {
-        finish();
-        overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);//切换动画
-    }
-
-    /**
-     * 显示等待框
-     */
-    protected void showLoading() {
-
-    }
-
-    /**
-     * 隐藏等待框
-     */
-    protected void hideLoading() {
-
+    protected void addFragment(int containerViewId, Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(containerViewId, fragment);
+        fragmentTransaction.commit();
     }
 
     /**
@@ -153,25 +196,6 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
      */
     public Activity getActivity() {
         return this;
-    }
-
-    /**
-     * 状态栏是否设置为透明,5.0之后有效
-     */
-    protected void setTitleBarTransparent() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(option);
-            getWindow().setNavigationBarColor(Color.TRANSPARENT);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
     }
 
 }

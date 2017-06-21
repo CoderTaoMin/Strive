@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodManager;
   * Created by 清风徐来 on 2016/8/17
  * 类说明:
  */
-public class KeyboardUtils {
+public class KeyboardUtil {
     /**
      * 隐藏键盘
      */

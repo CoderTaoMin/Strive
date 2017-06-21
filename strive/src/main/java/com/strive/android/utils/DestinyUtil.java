@@ -8,8 +8,8 @@ import android.util.TypedValue;
  * Created by 清风徐来 on 2016/11/3
  * 类说明: 单位转换
  */
-public class DestinyUtils {
-    private DestinyUtils(){
+public class DestinyUtil {
+    private DestinyUtil(){
         throw new UnsupportedOperationException("can't be instantiated");
     }
 

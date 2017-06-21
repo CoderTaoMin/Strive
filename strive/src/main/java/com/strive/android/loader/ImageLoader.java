@@ -1,4 +1,4 @@
-package com.strive.android.ImageLoader;
+package com.strive.android.loader;
 
 import android.content.Context;
 import android.widget.ImageView;
@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 /**
- * Created by Frank on 2017/6/20.
+ * Created by 清风徐来 on 2017/6/20.
  * 所有图片的加载入口
  */
 

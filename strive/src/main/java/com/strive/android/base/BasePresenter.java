@@ -4,14 +4,19 @@ package com.strive.android.base;
  * Created by Frank on 2016/11/1
  * 类说明: 基类Presenter
  */
-public abstract class BasePresenter<T> {
-    public T mView;
+public interface BasePresenter {
+    /**
+     * 管理声明周期,在Activity或者Fragment调用
+     */
+    void onResume();
 
-    public void attach(T mView) {
-        this.mView = mView;
-    }
+    /**
+     * 管理声明周期,在Activity或者Fragment调用
+     */
+    void onPause();
 
-    public void detach() {
-        mView = null;
-    }
+    /**
+     * 管理声明周期,在Activity或者Fragment调用
+     */
+    void onDestroy();
 }

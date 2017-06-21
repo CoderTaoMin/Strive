@@ -1,4 +1,4 @@
-package com.strive.android.ImageLoader;
+package com.strive.android.loader.glide;
 
 import android.annotation.TargetApi;
 import android.content.Context;

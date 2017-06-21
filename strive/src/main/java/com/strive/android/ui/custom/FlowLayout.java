@@ -1,4 +1,4 @@
-package com.strive.android.ui.widget;
+package com.strive.android.ui.custom;
 
 import android.content.Context;
 import android.util.AttributeSet;
