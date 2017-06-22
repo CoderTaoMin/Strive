@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.strive.android">
 
+    <uses-permission android:name="android.permission.INTERNET" /><!--联网-->
+    <uses-permission android:name="android.permission.CALL_PHONE" /><!--拨打电话-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /><!--读写SD卡-->
+
     <application
         android:name=".App"
         android:allowBackup="true"

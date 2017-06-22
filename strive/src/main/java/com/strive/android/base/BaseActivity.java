@@ -1,18 +1,14 @@
 package com.strive.android.base;
 
-import android.app.Activity;
 
-import android.content.pm.PackageManager;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
+
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
+
 
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,7 +17,7 @@ import android.widget.LinearLayout;
 
 import com.strive.android.R;
 import com.strive.android.ui.custom.MultipleStatusLayout;
-import com.strive.android.utils.ToastUtil;
+
 
 
 /**
@@ -38,21 +34,20 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_base);
         rootLayout = (MultipleStatusLayout) findViewById(R.id.msl_base_root);
-        showLoading();
         rootLayout.setOnRetryClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showToast(getActivity(), "重新加载");
+                loadData();
             }
         });
         LinearLayout contentLayout = (LinearLayout) findViewById(R.id.content_view);
         View view = getLayoutInflater().inflate(getLayoutId(), null);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT
-                ,LinearLayout.LayoutParams.MATCH_PARENT);
-        contentLayout.addView(view,lp);
-        findView();
-        initView();
+                , LinearLayout.LayoutParams.MATCH_PARENT);
+        contentLayout.addView(view, lp);
         presenter = initPresenter();
+        initView();
+        loadData();
     }
 
     @Override
@@ -132,9 +127,14 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      */
     protected abstract int getLayoutId();
 
-    protected abstract void findView();
-
     protected abstract void initView();
+
+    /**
+     * 加载数据
+     */
+    protected void loadData() {
+        showLoading();
+    }
 
     /**
      * 初始化Presenter
@@ -155,57 +155,5 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         fragmentTransaction.commit();
     }
 
-    /**
-     * 检测权限适用于6.0及以上系统
-     *
-     * @param permissions 权限
-     * @return
-     */
-    protected boolean hasPermission(String... permissions) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            for (String permission : permissions) {
-                if (ContextCompat.checkSelfPermission(this, permission)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    /**
-     * 申请权限
-     *
-     * @param code
-     * @param permissions
-     */
-    protected void requestPermission(int code, String... permissions) {
-        ActivityCompat.requestPermissions(this, permissions, code);
-    }
-
-    /**
-     * 权限申请回调
-     *
-     * @param requestCode  请求授权码
-     * @param permissions  权限
-     * @param grantResults 授权结果
-     */
-    protected void requestPermissionCallBack(int requestCode, String[] permissions, int[] grantResults) {
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        requestPermissionCallBack(requestCode, permissions, grantResults);
-    }
-
-    /**
-     * 获取Activity实例
-     *
-     * @return
-     */
-    public Activity getActivity() {
-        return this;
-    }
 
 }
