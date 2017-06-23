@@ -9,21 +9,7 @@ import android.view.ViewGroup;
 
 /**
  * Created by 清风徐来 on 2016/11/7
- * 类说明:基类Fragment,在用户可见才加载数据,懒加载,执行顺序如下
- * setUserVisibleHint: isVisibleToUser = false
- * onAttach
- * onCreate
- * setUserVisibleHint: isVisibleToUser = true
- * onCreateView
- * onActivityCreated
- * onStart
- * onResume
- * onPause
- * onPause
- * onStop
- * onDestroyView
- * onDestroy
- * onDetach
+ * 类说明:实现懒加载的Fragment
  */
 public abstract class BaseFragment extends Fragment {
     private boolean isViewCreated;//视图是否已经创建
@@ -41,7 +27,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(getUserVisibleHint()){
+        if (getUserVisibleHint()) {
             loadData();
             isLoadDataComplete = true;
         }

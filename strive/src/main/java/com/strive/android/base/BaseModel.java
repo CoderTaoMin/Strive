@@ -6,5 +6,5 @@ package com.strive.android.base;
  * 类说明: 基类Model
  */
 public interface BaseModel {
-
+    //TODO
 }

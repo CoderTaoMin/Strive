@@ -23,7 +23,9 @@ import com.strive.android.utils.ToastUtil;
  */
 public class MainPresenter implements BasePresenter {
     private MainView mMainView;
-
+    /**
+     * 需要申请的权限列表
+     */
     private final String[] PERMISSIONS = {Manifest.permission.CALL_PHONE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private PermissionChecker permissionChecker;
@@ -38,7 +40,7 @@ public class MainPresenter implements BasePresenter {
 
     public void callPhone(Context context) {
         Intent phoneIntent = new Intent(Intent.ACTION_CALL);
-        phoneIntent.setData(Uri.parse("tel:18867537552"));
+        phoneIntent.setData(Uri.parse("tel:10086"));
         context.startActivity(phoneIntent);
     }
 
@@ -50,7 +52,7 @@ public class MainPresenter implements BasePresenter {
     public void showMissingPermissionDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("温馨提示");
-        builder.setMessage("主,请授予我权限");
+        builder.setMessage("亲,请授予我权限才能更好的为你服务");
 
         // 拒绝, 退出应用
         builder.setNegativeButton("退出", new DialogInterface.OnClickListener() {
