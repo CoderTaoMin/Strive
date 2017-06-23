@@ -9,13 +9,15 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         android:theme="@style/Theme.ToolBar.Translucent">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Title"
+            android:visibility="gone"
             android:textColor="#fff" />
     </android.support.v7.widget.Toolbar>
 

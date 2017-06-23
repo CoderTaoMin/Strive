@@ -40,16 +40,15 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     @Override
     protected void initView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_drawer_home);//设置导航栏图标
-        toolbar.setLogo(R.mipmap.ic_launcher);//设置app logo
-        toolbar.setTitle("Title");//设置主标题
+//        toolbar.setLogo(R.mipmap.ic_launcher);//设置app logo
+        toolbar.setTitle("首页");//设置主标题
         toolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.white));//设置主标题颜色
         toolbar.setTitleTextAppearance(this, R.style.Theme_ToolBar_Base_Title);//修改主标题的外观，包括文字颜色，文字大小等
 
-        toolbar.setSubtitle("Subtitle");//设置子标题
-        toolbar.setSubtitleTextColor(ContextCompat.getColor(this, android.R.color.darker_gray));//设置子标题颜色
-        toolbar.setSubtitleTextAppearance(this, R.style.Theme_ToolBar_Base_Subtitle);//设置子标题的外观，包括文字颜色，文字大小等
+//        toolbar.setSubtitle("Subtitle");//设置子标题
+//        toolbar.setSubtitleTextColor(ContextCompat.getColor(this, android.R.color.darker_gray));//设置子标题颜色
+//        toolbar.setSubtitleTextAppearance(this, R.style.Theme_ToolBar_Base_Subtitle);//设置子标题的外观，包括文字颜色，文字大小等
 
         toolbar.inflateMenu(R.menu.base_toolbar_menu);//设置右上角的填充菜单
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -58,10 +57,8 @@ public class MainActivity extends BaseActivity<MainPresenter> {
                 int menuItemId = item.getItemId();
                 if (menuItemId == R.id.action_search) {
                     Toast.makeText(MainActivity.this, R.string.menu_search, Toast.LENGTH_SHORT).show();
-
                 } else if (menuItemId == R.id.action_notification) {
                     Toast.makeText(MainActivity.this, R.string.menu_notifications, Toast.LENGTH_SHORT).show();
-
                 }
                 return true;
             }
@@ -83,6 +80,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
                 showNetWorkError();
             }
         }, 3000);
+
     }
 
     @Override
@@ -130,10 +128,12 @@ public class MainActivity extends BaseActivity<MainPresenter> {
             showMissingPermissionDialog();
         }
     }
-    // 显示缺失权限提示
+    /**
+     * 显示缺失权限提示
+     */
     private void showMissingPermissionDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("帮助");
+        builder.setTitle("温馨提示");
         builder.setMessage("主,请授予我权限");
 
         // 拒绝, 退出应用

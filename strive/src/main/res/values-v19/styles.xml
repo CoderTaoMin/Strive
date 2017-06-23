@@ -1,40 +1,38 @@
 <resources>
+    <!--4.4-->
+    <!--App主题样式 start-->
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme" parent="AppTheme.Base">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ImageTranslucentTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!--App主题样式 end-->
+
+    <!--Activity的样式开始-->
+    <!--沉浸式Activity-->
+
+    <style name="TranslucentActivity" parent="AppTheme.Base">
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentNavigation">false</item><!--navigationBar不做处理-->
     </style>
 
-    <style name="ColorTranslucentTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-    </style>
+    <!--Activity的样式结束-->
 
-    <style name="Theme.Translucent.Navigation" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-    </style>
+    <!--toolBar的样式 start-->
+    <!--toolBar的样式4.4-->
 
-    <style name="Theme.Translucent" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="android:windowTranslucentStatus">true</item>
-        <!--<item name="android:windowTranslucentNavigation">true</item>-->
-    </style>
-
-    <!--仿知乎toolBar-->
-    <style name="Theme.ToolBar.Translucent" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="Theme.ToolBar.Translucent" parent="AppTheme.Base">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.KitKat</item>
     </style>
 
+    <!--toolBar的样式 end-->
 </resources>

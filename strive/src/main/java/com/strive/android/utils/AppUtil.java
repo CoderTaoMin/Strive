@@ -11,6 +11,10 @@ import android.provider.Settings;
  */
 public class AppUtil {
 
+    /**
+     * 打开设置页面
+     * @param context
+     */
     public static void openAppSetting(Context context) {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + context.getPackageName()));

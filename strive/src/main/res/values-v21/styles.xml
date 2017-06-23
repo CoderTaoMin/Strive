@@ -1,44 +1,40 @@
 <resources>
+    <!--5.0+-->
+    <!--App主题样式 start-->
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme" parent="AppTheme.Base">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ImageTranslucentTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!--App主题样式 end-->
+
+    <!--Activity的样式开始-->
+    <!--沉浸式Activity-->
+
+    <style name="TranslucentActivity" parent="AppTheme.Base">
         <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentNavigation">false</item><!--navigationBar不处理-->
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="ColorTranslucentTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>
+    <!--Activity的样式结束-->
 
-    <style name="Theme.Translucent.Navigation" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>
+    <!--toolBar的样式 start-->
+    <!--toolBar的样式5.0+-->
 
-    <style name="Theme.Translucent" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="android:windowTranslucentStatus">false</item>
-        <!--<item name="android:windowTranslucentNavigation">true</item>-->
-        <item name="android:statusBarColor">@color/colorPrimary</item>
-    </style>
-    <!--仿知乎ToolBar-->
-    <style name="Theme.ToolBar.Translucent" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="Theme.ToolBar.Translucent" parent="AppTheme.Base">
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.KitKat</item>
     </style>
+
+    <!--toolBar的样式 end-->
 </resources>

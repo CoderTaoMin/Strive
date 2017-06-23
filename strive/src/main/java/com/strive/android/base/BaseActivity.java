@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 
 
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -25,9 +26,9 @@ import com.strive.android.ui.custom.MultipleStatusLayout;
  * 类说明:基类Activity
  */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
-    private T presenter;
+    protected T presenter;
     protected MultipleStatusLayout rootLayout;//视图的各种状态,如加载错误,网络错误,loading状态
-
+    protected Toolbar toolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +42,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             }
         });
         LinearLayout contentLayout = (LinearLayout) findViewById(R.id.content_view);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         View view = getLayoutInflater().inflate(getLayoutId(), null);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT
                 , LinearLayout.LayoutParams.MATCH_PARENT);
