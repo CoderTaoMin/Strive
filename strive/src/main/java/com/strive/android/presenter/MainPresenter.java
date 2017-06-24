@@ -47,10 +47,9 @@ public class MainPresenter implements BasePresenter {
     /**
      * 显示权限缺失Dialog
      *
-     * @param context
      */
-    public void showMissingPermissionDialog(final Context context) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    public void showMissingPermissionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mMainView.getActivity());
         builder.setTitle("温馨提示");
         builder.setMessage("亲,请授予我权限才能更好的为你服务");
 
@@ -65,7 +64,7 @@ public class MainPresenter implements BasePresenter {
         builder.setPositiveButton("设置", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                AppUtil.openAppSetting(context);
+                AppUtil.openAppSetting(mMainView.getActivity());
             }
         });
 
