@@ -2,6 +2,7 @@
 package com.strive.android.utils;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -19,10 +20,31 @@ import java.io.Writer;
 
 /**
  * Created by 清风徐来 on 2016/11/3
- * Copyright © 2016- 2017 . All Rights Reserved
  * 类说明: 文件操作
  */
 public class FileUtil {
+    private static final String CACHE_DIR = "strive";
+
+    /**
+     * 创建APP使用的基类文件夹
+     */
+    public static void createBaseFolder() {
+        if (sdCardIsAvailable()) {
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + CACHE_DIR;
+            File folder = new File(path);
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+        }
+    }
+
+    /**
+     * 获取APP使用的基类文件夹路径
+     * @return
+     */
+    public static String getBaseFolderPath() {
+        return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + CACHE_DIR;
+    }
 
     /**
      * 得到SD卡根目录.

@@ -31,4 +31,8 @@ dependencies {
     compile "com.android.support:design:${libVersion.supportVersion}"
     compile "com.github.bumptech.glide:glide:${libVersion.glideVersion}"
     compile "com.squareup.retrofit2:retrofit:${libVersion.retrofitVersion}"
+    compile "com.squareup.retrofit2:converter-gson:${libVersion.retrofitVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${libVersion.retrofitVersion}"
+    compile "io.reactivex:rxjava:${libVersion.rxJavaVersion}"
+    compile "io.reactivex:rxandroid:${libVersion.rxAndroidVersion}"
 }

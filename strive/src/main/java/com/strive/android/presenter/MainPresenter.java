@@ -12,10 +12,20 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 
 import com.strive.android.base.BasePresenter;
+import com.strive.android.model.MainModel;
+import com.strive.android.model.entity.Contributor;
 import com.strive.android.permission.PermissionChecker;
 import com.strive.android.ui.view.MainView;
 import com.strive.android.utils.AppUtil;
+import com.strive.android.utils.FileUtil;
+import com.strive.android.utils.LogUtil;
 import com.strive.android.utils.ToastUtil;
+
+import java.util.List;
+
+import rx.Observable;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by 清风徐来 on 2017/6/20.
@@ -23,19 +33,37 @@ import com.strive.android.utils.ToastUtil;
  */
 public class MainPresenter implements BasePresenter {
     private MainView mMainView;
+    private MainModel mainModel;
     /**
      * 需要申请的权限列表
      */
     private final String[] PERMISSIONS = {Manifest.permission.CALL_PHONE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
     private PermissionChecker permissionChecker;
     private final int PERMISSION_REQUEST_CODE = 0;
     private boolean isRequireCheck;//是否需要请求权限
 
     public MainPresenter(MainView mMainView) {
         this.mMainView = mMainView;
+        mainModel = new MainModel();
         permissionChecker = new PermissionChecker(mMainView.getActivity());
         isRequireCheck = true;
+    }
+
+
+    public void listContributes() {
+        mainModel.listContributors("square", "retrofit")
+                .subscribe(new Action1<List<Contributor>>() {
+                    @Override
+                    public void call(List<Contributor> contributors) {
+                        for (Contributor contributor : contributors) {
+                            LogUtil.i("xyh", "name = " + contributor.getLogin()
+                                    + "--contributor = " + contributor.getContributions());
+                        }
+                    }
+                });
+
     }
 
     public void callPhone(Context context) {
@@ -46,7 +74,6 @@ public class MainPresenter implements BasePresenter {
 
     /**
      * 显示权限缺失Dialog
-     *
      */
     public void showMissingPermissionDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mMainView.getActivity());
@@ -99,8 +126,9 @@ public class MainPresenter implements BasePresenter {
 
     /**
      * 处理权限申请结果
-     * @param requestCode 请求code
-     * @param permissions 申请的权限
+     *
+     * @param requestCode  请求code
+     * @param permissions  申请的权限
      * @param grantResults 授予状态
      */
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

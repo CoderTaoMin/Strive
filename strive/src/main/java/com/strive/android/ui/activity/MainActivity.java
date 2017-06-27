@@ -72,9 +72,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                onDataError();
+                onNormal();
             }
-        },3000);
+        }, 3000);
     }
 
     @Override
@@ -84,11 +84,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mPresenter.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        mPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     public void callPhone(View view) {
         mPresenter.callPhone(this);
+    }
+
+    public void request(View view) {
+        mPresenter.listContributes();
     }
 
     @Override
