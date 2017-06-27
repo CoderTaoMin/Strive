@@ -3,6 +3,7 @@ package com.strive.android.ui.activity;
 
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -65,7 +66,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
         return new MainPresenter(this);
     }
 
-
+    @Override
+    protected void loadData() {
+        super.loadData();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onDataError();
+            }
+        },3000);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

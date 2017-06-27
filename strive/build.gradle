@@ -1,19 +1,25 @@
 apply plugin: 'com.android.application'
 
+def config = rootProject.ext.configuration
+def libVersion = rootProject.ext.libraryVersion
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion config.compileSdkVersion
+    buildToolsVersion config.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.strive.android"
-        minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        applicationId config.applicationId
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        versionCode config.versionCode
+        versionName config.versionName
     }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -21,8 +27,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile "com.android.support:appcompat-v7:${libVersion.supportVersion}"
+    compile "com.android.support:design:${libVersion.supportVersion}"
+    compile "com.github.bumptech.glide:glide:${libVersion.glideVersion}"
+    compile "com.squareup.retrofit2:retrofit:${libVersion.retrofitVersion}"
 }

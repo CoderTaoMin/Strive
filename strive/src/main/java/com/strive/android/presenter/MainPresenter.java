@@ -109,7 +109,7 @@ public class MainPresenter implements BasePresenter {
             ToastUtil.showToast(mMainView.getActivity(), "权限获取完毕");
         } else {
             isRequireCheck = false;
-            showMissingPermissionDialog(mMainView.getActivity());
+            showMissingPermissionDialog();
         }
     }
 
