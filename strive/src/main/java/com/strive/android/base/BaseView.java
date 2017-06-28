@@ -17,25 +17,25 @@ public interface BaseView {
     /**
      * 显示loading页面
      */
-    void onLoading();
+    void showLoading();
 
     /**
      * 显示空数据页面
      */
-    void onContentEmpty();
+    void showEmpty();
 
     /**
      * 显示错误页面
      */
-    void onDataError();
+    void showDataError();
 
     /**
      * 显示网络错误页面
      */
-    void onNetError();
+    void showNetError();
 
     /**
      * 显示正常数据
      */
-    void onNormal();
+    void showContent();
 }

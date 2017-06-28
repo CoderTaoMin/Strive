@@ -15,6 +15,7 @@ import com.strive.android.base.BasePresenter;
 import com.strive.android.model.MainModel;
 import com.strive.android.model.entity.Contributor;
 import com.strive.android.permission.PermissionChecker;
+import com.strive.android.ui.adapter.ContributorAdapter;
 import com.strive.android.ui.view.MainView;
 import com.strive.android.utils.AppUtil;
 import com.strive.android.utils.FileUtil;
@@ -51,54 +52,20 @@ public class MainPresenter implements BasePresenter {
         isRequireCheck = true;
     }
 
-
     public void listContributes() {
+        mMainView.showLoading();
         mainModel.listContributors("square", "retrofit")
                 .subscribe(new Action1<List<Contributor>>() {
                     @Override
                     public void call(List<Contributor> contributors) {
-                        for (Contributor contributor : contributors) {
-                            LogUtil.i("xyh", "name = " + contributor.getLogin()
-                                    + "--contributor = " + contributor.getContributions());
-                        }
+                        mMainView.showContent();
+                        mMainView.getContributorRecyclerView()
+                                .setAdapter(new ContributorAdapter(contributors));
                     }
                 });
 
     }
 
-    public void callPhone(Context context) {
-        Intent phoneIntent = new Intent(Intent.ACTION_CALL);
-        phoneIntent.setData(Uri.parse("tel:10086"));
-        context.startActivity(phoneIntent);
-    }
-
-    /**
-     * 显示权限缺失Dialog
-     */
-    public void showMissingPermissionDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mMainView.getActivity());
-        builder.setTitle("温馨提示");
-        builder.setMessage("亲,请授予我权限才能更好的为你服务");
-
-        // 拒绝, 退出应用
-        builder.setNegativeButton("退出", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                mMainView.back();
-            }
-        });
-
-        builder.setPositiveButton("设置", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                AppUtil.openAppSetting(mMainView.getActivity());
-            }
-        });
-
-        builder.setCancelable(false);
-
-        builder.show();
-    }
 
     @Override
     public void onResume() {
@@ -122,6 +89,45 @@ public class MainPresenter implements BasePresenter {
     @Override
     public void onDestroy() {
         mMainView = null;
+    }
+
+    /**
+     * 拨打电话
+     */
+    public void callPhone() {
+        Intent phoneIntent = new Intent(Intent.ACTION_CALL);
+        phoneIntent.setData(Uri.parse("tel:10086"));
+        if (!permissionChecker.lackPermissions(Manifest.permission.CALL_PHONE)) {
+            mMainView.getActivity().startActivity(phoneIntent);
+        }
+    }
+
+    /**
+     * 显示权限缺失Dialog
+     */
+    private void showMissingPermissionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mMainView.getActivity());
+        builder.setTitle("温馨提示");
+        builder.setMessage("亲,请授予我权限才能更好的为你服务");
+
+        // 拒绝, 退出应用
+        builder.setNegativeButton("退出", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mMainView.back();
+            }
+        });
+
+        builder.setPositiveButton("设置", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                AppUtil.openAppSetting(mMainView.getActivity());
+            }
+        });
+
+        builder.setCancelable(false);
+
+        builder.show();
     }
 
     /**

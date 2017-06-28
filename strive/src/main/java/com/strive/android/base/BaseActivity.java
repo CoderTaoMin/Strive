@@ -38,7 +38,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         mRootLayout.setOnRetryClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadData();
+
             }
         });
         LinearLayout contentLayout = (LinearLayout) findViewById(R.id.content_view);
@@ -49,7 +49,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         contentLayout.addView(view, lp);
         mPresenter = initPresenter();
         initView();
-        loadData();
+
     }
 
     @Override
@@ -86,12 +86,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     protected abstract void initView();
 
-    /**
-     * 加载数据
-     */
-    protected void loadData() {
-        onLoading();
-    }
+
 
     /**
      * 初始化Presenter
@@ -121,7 +116,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * loading状态
      */
     @Override
-    public void onLoading() {
+    public void showLoading() {
         if (mRootLayout != null) {
             mRootLayout.showLoading();
         }
@@ -131,7 +126,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * 内容为空
      */
     @Override
-    public void onContentEmpty() {
+    public void showEmpty() {
         if (mRootLayout != null) {
             mRootLayout.showEmpty();
         }
@@ -141,7 +136,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * 网络出错
      */
     @Override
-    public void onNetError() {
+    public void showNetError() {
         if (mRootLayout != null) {
             mRootLayout.showNoNetwork();
         }
@@ -151,7 +146,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * 数据错误
      */
     @Override
-    public void onDataError() {
+    public void showDataError() {
         if (mRootLayout != null) {
             mRootLayout.showError();
         }
@@ -161,7 +156,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * 数据加载正常
      */
     @Override
-    public void onNormal() {
+    public void showContent() {
         if (mRootLayout != null) {
             mRootLayout.showContent();
         }

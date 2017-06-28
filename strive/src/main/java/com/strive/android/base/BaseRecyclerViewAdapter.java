@@ -22,9 +22,9 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
         this.mDataList = mDataList;
     }
 
-    abstract int getLayoutId(int viewType);
+    protected abstract int getLayoutId(int viewType);
 
-    abstract void convert(BaseRecyclerViewHolder holder, T data, int position);
+    protected abstract void convert(BaseRecyclerViewHolder holder, T data, int position);
 
     @Override
     public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

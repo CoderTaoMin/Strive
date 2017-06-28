@@ -23,14 +23,14 @@ import java.io.Writer;
  * 类说明: 文件操作
  */
 public class FileUtil {
-    private static final String CACHE_DIR = "strive";
+    private static final String APP_FOLDER = "strive";
 
     /**
-     * 创建APP使用的基类文件夹
+     * 创建APP使用的基础文件夹
      */
     public static void createBaseFolder() {
         if (sdCardIsAvailable()) {
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + CACHE_DIR;
+            String path = getRootPath() + File.separator + APP_FOLDER;
             File folder = new File(path);
             if (!folder.exists()) {
                 folder.mkdirs();
@@ -40,23 +40,37 @@ public class FileUtil {
 
     /**
      * 获取APP使用的基类文件夹路径
+     *
      * @return
      */
     public static String getBaseFolderPath() {
-        return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + CACHE_DIR;
+        return getRootPath() + File.separator + APP_FOLDER;
     }
 
     /**
      * 得到SD卡根目录.
      */
-    public static File getRootPath() {
-        File path = null;
-        if (FileUtil.sdCardIsAvailable()) {
-            path = Environment.getExternalStorageDirectory(); // 取得sdcard文件路径
+    public static File getRootPathFile() {
+        File rootFile;
+        if (sdCardIsAvailable()) {
+            rootFile = Environment.getExternalStorageDirectory(); // 取得sdcard文件路径
         } else {
-            path = Environment.getDataDirectory();
+            rootFile = Environment.getDataDirectory();
         }
-        return path;
+        return rootFile;
+    }
+
+    /**
+     * 得到SD卡根目录.
+     */
+    public static String getRootPath() {
+        File rootFile;
+        if (sdCardIsAvailable()) {
+            rootFile = Environment.getExternalStorageDirectory(); // 取得sdcard文件路径
+        } else {
+            rootFile = Environment.getDataDirectory();
+        }
+        return rootFile.getAbsolutePath();
     }
 
     /**
@@ -78,10 +92,20 @@ public class FileUtil {
         return file.exists();
     }
 
+    /**
+     * 删除文件
+     *
+     * @param path 文件路径
+     */
     public static void deleleFile(String path) {
         deleteFile(new File(path));
     }
 
+    /**
+     * 删除文件
+     *
+     * @param file 文件
+     */
     public static void deleteFile(File file) {
         if (file != null && file.exists())
             file.delete();
@@ -154,7 +178,7 @@ public class FileUtil {
 
                 if (temp.isFile()) {
                     FileInputStream input = new FileInputStream(temp);
-                    FileOutputStream output = new FileOutputStream(newPath + "/" + (temp.getName()).toString());
+                    FileOutputStream output = new FileOutputStream(newPath + "/" + temp.getName());
                     byte[] b = new byte[1024 * 5];
                     int len;
                     while ((len = input.read(b)) != -1) {
@@ -168,15 +192,15 @@ public class FileUtil {
                     copyFolder(oldPath + "/" + file[i], newPath + "/" + file[i]);
                 }
             }
-        } catch (NullPointerException e) {
         } catch (Exception e) {
+            LogUtil.e(e.getMessage());
         }
     }
 
     /**
      * 重命名文件.
      */
-    public static boolean renameFile(String resFilePath, String newFilePath) {
+    public static boolean reNameFile(String resFilePath, String newFilePath) {
         File resFile = new File(resFilePath);
         File newFile = new File(newFilePath);
         return resFile.renameTo(newFile);
@@ -188,7 +212,7 @@ public class FileUtil {
     @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     public static long getSDCardAvailaleSize() {
-        File path = getRootPath();
+        File path = getRootPathFile();
         StatFs stat = new StatFs(path.getPath());
         long blockSize, availableBlocks;
         if (Build.VERSION.SDK_INT >= 18) {
