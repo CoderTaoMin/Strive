@@ -61,7 +61,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
         contributorRecyclerView = (RecyclerView) findViewById(R.id.rv_main_contributor_list);
         contributorRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         contributorRecyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-        mPresenter.listContributes();
     }
 
     @Override

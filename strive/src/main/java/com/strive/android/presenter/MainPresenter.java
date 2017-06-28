@@ -63,7 +63,6 @@ public class MainPresenter implements BasePresenter {
                                 .setAdapter(new ContributorAdapter(contributors));
                     }
                 });
-
     }
 
 
@@ -74,7 +73,7 @@ public class MainPresenter implements BasePresenter {
                 //申请权限
                 ActivityCompat.requestPermissions(mMainView.getActivity(), PERMISSIONS, PERMISSION_REQUEST_CODE);
             } else {
-                ToastUtil.showToast(mMainView.getActivity(), "所有的权限获取完毕");
+                listContributes();
             }
         } else {
             isRequireCheck = true;
