@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
 
 def config = rootProject.ext.configuration
 def libVersion = rootProject.ext.libraryVersion
@@ -35,4 +36,6 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:${libVersion.retrofitVersion}"
     compile "io.reactivex:rxjava:${libVersion.rxJavaVersion}"
     compile "io.reactivex:rxandroid:${libVersion.rxAndroidVersion}"
+    compile "com.jakewharton:butterknife:${libVersion.butterKnifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${libVersion.butterKnifeVersion}"
 }

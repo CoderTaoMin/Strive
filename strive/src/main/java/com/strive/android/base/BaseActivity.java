@@ -17,7 +17,11 @@ import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.strive.android.R;
+import com.strive.android.R2;
 import com.strive.android.ui.custom.MultipleStatusLayout;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -26,30 +30,28 @@ import com.strive.android.ui.custom.MultipleStatusLayout;
  */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView {
     protected T mPresenter;
-    protected MultipleStatusLayout mRootLayout;//视图的各种状态,如加载错误,网络错误,loading状态
-    protected Toolbar mToolBar;
-
+    @BindView(R2.id.msl_base_root) protected MultipleStatusLayout mRootLayout;//视图的各种状态,如加载错误,网络错误,loading状态
+    @BindView(R2.id.toolbar) protected Toolbar mToolBar;
+    @BindView(R2.id.ll_content) protected LinearLayout mContentLayout;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_base);
-        mRootLayout = (MultipleStatusLayout) findViewById(R.id.msl_base_root);
+        ButterKnife.setDebug(true);
+        ButterKnife.bind(this);
         mRootLayout.setOnRetryClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onRetryClick();
             }
         });
-        LinearLayout contentLayout = (LinearLayout) findViewById(R.id.content_view);
-        mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        View view = getLayoutInflater().inflate(getLayoutId(), null);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT
+        View contentView = getLayoutInflater().inflate(getLayoutId(), null);
+        LinearLayout.LayoutParams contentViewLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT
                 , LinearLayout.LayoutParams.MATCH_PARENT);
-        contentLayout.addView(view, lp);
+        mContentLayout.addView(contentView, contentViewLp);
         mPresenter = initPresenter();
         initView();
-
     }
 
     @Override
@@ -86,7 +88,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     protected abstract void initView();
 
-
+    /**
+     * 重试点击事件
+     */
+    protected void onRetryClick() {
+        showLoading();
+    }
 
     /**
      * 初始化Presenter

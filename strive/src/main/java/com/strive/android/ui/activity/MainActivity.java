@@ -3,7 +3,6 @@ package com.strive.android.ui.activity;
 
 import android.os.Bundle;
 
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -18,24 +17,36 @@ import android.widget.Toast;
 
 
 import com.strive.android.R;
+import com.strive.android.R2;
 import com.strive.android.base.BaseActivity;
 
 import com.strive.android.presenter.MainPresenter;
 
 import com.strive.android.ui.view.MainView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by 清风徐来 on 2017/6/20.
  * 主Activity Demo
  */
 public class MainActivity extends BaseActivity<MainPresenter> implements MainView {
+    private ViewHolder viewHolder;
 
-    private RecyclerView contributorRecyclerView;
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected MainPresenter initPresenter() {
+        return new MainPresenter(this);
     }
 
     @Override
@@ -58,26 +69,22 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
                 return true;
             }
         });
-        contributorRecyclerView = (RecyclerView) findViewById(R.id.rv_main_contributor_list);
-        contributorRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        contributorRecyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        viewHolder = new ViewHolder(mRootLayout);
+        viewHolder.contributorRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        viewHolder.contributorRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
-    @Override
-    protected MainPresenter initPresenter() {
-        return new MainPresenter(this);
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         mPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    @Override
+    protected void onRetryClick() {
+        super.onRetryClick();
+        mPresenter.listContributes();
+    }
 
     @Override
     public void back() {
@@ -86,6 +93,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
 
     @Override
     public RecyclerView getContributorRecyclerView() {
-        return contributorRecyclerView;
+        return viewHolder.contributorRecyclerView;
+    }
+
+    class ViewHolder {
+        @BindView(R2.id.rv_main_contributor_list)
+        RecyclerView contributorRecyclerView;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }

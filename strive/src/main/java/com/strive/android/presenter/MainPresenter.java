@@ -2,7 +2,6 @@ package com.strive.android.presenter;
 
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,19 +13,14 @@ import android.support.v7.app.AlertDialog;
 import com.strive.android.base.BasePresenter;
 import com.strive.android.model.MainModel;
 import com.strive.android.model.entity.Contributor;
+import com.strive.android.network.HttpResponseListener;
 import com.strive.android.permission.PermissionChecker;
 import com.strive.android.ui.adapter.ContributorAdapter;
 import com.strive.android.ui.view.MainView;
 import com.strive.android.utils.AppUtil;
-import com.strive.android.utils.FileUtil;
-import com.strive.android.utils.LogUtil;
 import com.strive.android.utils.ToastUtil;
 
 import java.util.List;
-
-import rx.Observable;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by 清风徐来 on 2017/6/20.
@@ -54,17 +48,26 @@ public class MainPresenter implements BasePresenter {
 
     public void listContributes() {
         mMainView.showLoading();
-        mainModel.listContributors("square", "retrofit")
-                .subscribe(new Action1<List<Contributor>>() {
+        mainModel.listContributors("square", "Retrofit")
+                .subscribe(new HttpResponseListener<List<Contributor>>() {
                     @Override
-                    public void call(List<Contributor> contributors) {
-                        mMainView.showContent();
-                        mMainView.getContributorRecyclerView()
-                                .setAdapter(new ContributorAdapter(contributors));
+                    public void onError(Throwable e) {
+                        mMainView.showNetError();
+                    }
+
+                    @Override
+                    public void onNext(List<Contributor> contributors) {
+                        if (contributors.size() > 0) {
+                            mMainView.showContent();
+                            mMainView.getContributorRecyclerView()
+                                    .setAdapter(new ContributorAdapter(contributors));
+                        } else {
+                            mMainView.showEmpty();
+                        }
                     }
                 });
-    }
 
+    }
 
     @Override
     public void onResume() {

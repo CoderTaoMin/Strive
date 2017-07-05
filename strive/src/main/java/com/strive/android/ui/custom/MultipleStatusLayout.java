@@ -166,7 +166,7 @@ public class MultipleStatusLayout extends RelativeLayout {
                 mContentView = mInflater.inflate(mContentViewResId, null);
                 addView(mContentView, 0, mLayoutParams);
             } else {
-                mContentView = findViewById(R.id.content_view);
+                mContentView = findViewById(R.id.ll_content);
             }
         }
         showViewByStatus(mViewStatus);
